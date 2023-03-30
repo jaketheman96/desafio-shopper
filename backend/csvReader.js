@@ -3,25 +3,26 @@ const { parse } = require('csv-parse');
 
 const products = [];
 
-fs.createReadStream("./products.csv")
+fs.createReadStream('./products.csv')
   .pipe(
     parse({
-      delimiter: ",",
+      delimiter: ',',
       columns: true,
       ltrim: true,
-    })
+    }),
   )
-  .on("data", function (row) {
+  .on('data', (row) => {
     products.push(row);
   })
-  .on("error", function (error) {
+  .on('error', (error) => {
     console.log(error.message);
   })
-  .on("end", function () {
-    console.log(products)
-  })
+  .on('end', () => {
+    console.log(products);
+  });
 
   // *obs: troquei algumas vírgulas "," por pontos "." no arquivo csv, visto que a vírgula é o delimitador padrão de um arquivo csv.
   // depois será alterado no frontend.
+  // https://sebhastian.com/read-csv-javascript/
 
-module.exports = { products }
+module.exports = { products };
