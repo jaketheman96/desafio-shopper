@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-const UserModel = (sequelize, DataTypes) => {
+const SaleModel = (sequelize, DataTypes) => {
   const Sales = sequelize.define(
     'Sales',
     {
@@ -14,7 +14,7 @@ const UserModel = (sequelize, DataTypes) => {
         allowNull: false,
         foreignKey: true,
         references: {
-          model: 'users',
+          model: 'Users',
           key: 'id',
         },
       },
@@ -33,9 +33,14 @@ const UserModel = (sequelize, DataTypes) => {
         allowNull: false,
       },
     },
+    {
+      timestamps: false,
+      tableName: 'Sales',
+      underscored: true,
+    },
   );
 
   return Sales;
 };
 
-module.exports = UserModel;
+module.exports = SaleModel;

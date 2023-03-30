@@ -4,6 +4,9 @@
   "description": "",
   "main": "csvReader.js",
   "scripts": {
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "start": "node .",
+    "dev": "nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,8 +14,10 @@
   "license": "ISC",
   "dependencies": {
     "csv-parse": "^5.3.6",
+    "dotenv": "^16.0.3",
     "eslint-config-trybe-backend": "^2.1.0",
     "mysql2": "2.1.0",
+    "nodemon": "^2.0.22",
     "sequelize": "6.3.4"
   },
   "devDependencies": {

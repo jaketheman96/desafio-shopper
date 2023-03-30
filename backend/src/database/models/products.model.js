@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
-const UserModel = (sequelize, DataTypes) => {
-  const Users = sequelize.define(
-    'Users',
+const ProductModel = (sequelize, DataTypes) => {
+  const Products = sequelize.define(
+    'Products',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -23,9 +23,14 @@ const UserModel = (sequelize, DataTypes) => {
         field: 'qty_stock',
       },
     },
+    {
+      timestamps: false,
+      tableName: 'Products',
+      underscored: true,
+    },
   );
 
-  return Users;
+  return Products;
 };
 
-module.exports = UserModel;
+module.exports = ProductModel;

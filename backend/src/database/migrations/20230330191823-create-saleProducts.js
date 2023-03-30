@@ -1,10 +1,13 @@
 /* eslint-disable max-lines-per-function */
-const SaleProductModel = (sequelize, DataTypes) => {
-  const SaleProducts = sequelize.define(
-    'SaleProducts',
-    {
+/* eslint-disable lines-around-directive */
+/* eslint-disable strict */
+'use strict';
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('SaleProducts', {
       saleId: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         foreignKey: true,
         references: {
@@ -14,7 +17,7 @@ const SaleProductModel = (sequelize, DataTypes) => {
         field: 'sale_id',
       },
       productId: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         foreignKey: true,
         references: {
@@ -24,18 +27,13 @@ const SaleProductModel = (sequelize, DataTypes) => {
         field: 'product_id',
       },
       quantity: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-    },
-    {
-      timestamps: false,
-      tableName: 'SaleProducts',
-      underscored: true,
-    },
-  );
+    });
+  },
 
-  return SaleProducts;
+  down: async (queryInterface, _Sequelize) => {
+    await queryInterface.dropTable('SaleProducts');
+  },
 };
-
-module.exports = SaleProductModel;
