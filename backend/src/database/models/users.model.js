@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 const UserModel = (sequelize, DataTypes) => {
   const Users = sequelize.define(
     'Users',

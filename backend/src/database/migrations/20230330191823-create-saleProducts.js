@@ -1,6 +1,3 @@
-/* eslint-disable max-lines-per-function */
-/* eslint-disable lines-around-directive */
-/* eslint-disable strict */
 'use strict';
 
 module.exports = {

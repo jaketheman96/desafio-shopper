@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 const ProductModel = (sequelize, DataTypes) => {
   const Products = sequelize.define(
     'Products',
