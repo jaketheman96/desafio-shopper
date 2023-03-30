@@ -21,8 +21,4 @@ fs.createReadStream('./products.csv')
     console.log(products);
   });
 
-  // *obs: troquei algumas vírgulas "," por pontos "." no arquivo csv, visto que a vírgula é o delimitador padrão de um arquivo csv.
-  // depois será alterado no frontend.
   // https://sebhastian.com/read-csv-javascript/
-
-module.exports = { products };
