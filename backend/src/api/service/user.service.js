@@ -17,7 +17,7 @@ class UserService {
 
   async validateByEmail(email) {
     const validation = await this.userModel.findOne({ where: { email } });
-    if (validation) return StatusCodes.UNAUTHORIZED;
+    if (validation.email === email) return StatusCodes.CONFLICT;
     return validation;
   }
 
@@ -49,7 +49,7 @@ class UserService {
   async registerUser(userInfos) {
     const { name, email, password, role, address } = userInfos;
     const isUserInDb = await this.validateByEmail(email);
-    if (isUserInDb) return StatusCodes.CONFLICT;
+    if (isUserInDb === 409) return StatusCodes.CONFLICT;
     const hashedPassword = await hashPassword(password);
     const user = await this.userModel.create(
       { name, email, password: hashedPassword, role, address },
