@@ -32,6 +32,15 @@ class UserController {
     }
     return this.res.status(StatusCodes.OK).json(response);
   }
+
+  async registerUser() {
+    const response = await this.userService.registerUser(this.req.body);
+    if (response === 409) {
+      return this.res.status(StatusCodes.CONFLICT)
+        .json({ message: 'Email already used' });
+    }
+    return this.res.status(StatusCodes.CREATED).json(response);
+  }
 }
 
 module.exports = { UserController };

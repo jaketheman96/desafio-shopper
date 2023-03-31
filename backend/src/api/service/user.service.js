@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const { Users, Sales } = require('../../database/models');
-const { comparePassword } = require('../../helpers/passwordHelper');
+const { comparePassword, hashPassword } = require('../../helpers/passwordHelper');
 const { generateToken } = require('../../helpers/tokenGenerator');
 
 class UserService {
@@ -15,6 +15,12 @@ class UserService {
     return users;
   }
 
+  async validateByEmail(email) {
+    const validation = await this.userModel.findOne({ where: { email } });
+    if (validation) return StatusCodes.UNAUTHORIZED;
+    return validation;
+  }
+
   async getUserById(userId) {
     const user = await this.userModel.findByPk(userId, {
       include: [{ model: Sales, as: 'sales', attributes: { exclude: ['userId'] } }],
@@ -26,10 +32,9 @@ class UserService {
 
   async loginUser(userInfos) {
     const { email, password } = userInfos;
-    const login = await this.userModel.findOne({ where: { email } });
+    const login = await this.validateByEmail(email);
     if (!login) return StatusCodes.UNAUTHORIZED;
     const comparingPasswords = await comparePassword(password, login.password);
-    console.log(comparingPasswords);
     if (!comparingPasswords) return StatusCodes.UNAUTHORIZED;
     const token = generateToken(login);
     return {
@@ -37,6 +42,24 @@ class UserService {
       name: login.name,
       email: login.email,
       role: login.role,
+      token,
+    };
+  }
+
+  async registerUser(userInfos) {
+    const { name, email, password, role, address } = userInfos;
+    const isUserInDb = await this.validateByEmail(email);
+    if (isUserInDb) return StatusCodes.CONFLICT;
+    const hashedPassword = await hashPassword(password);
+    const user = await this.userModel.create(
+      { name, email, password: hashedPassword, role, address },
+    );
+    const token = generateToken(user);
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
       token,
     };
   }
