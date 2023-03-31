@@ -8,4 +8,9 @@ salesRoutes.get(
   (req, res, next) => new SalesController(req, res, next).getAllSales(),
 );
 
+salesRoutes.get(
+  '/:id',
+  (req, res, next) => new SalesController(req, res, next).getSaleById(),
+);
+
 module.exports = { salesRoutes };
