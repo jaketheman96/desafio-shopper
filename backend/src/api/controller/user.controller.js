@@ -17,6 +17,20 @@ class UserController {
       this.next(error);
     }
   }
+
+  async getUserById() {
+    const { id } = this.req.params;
+    try {
+      const response = await this.userService.getUserById(id);
+      if (response === 404) {
+        return this.res.status(StatusCodes.NOT_FOUND)
+          .json({ message: 'No such user with this id' });
+      }
+      return this.res.status(StatusCodes.OK).json(response);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }
 
 module.exports = { UserController };
