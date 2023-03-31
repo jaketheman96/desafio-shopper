@@ -8,4 +8,9 @@ productsRoute.get(
   (req, res, next) => new ProductsController(req, res, next).getAllProducts(),
 );
 
+productsRoute.get(
+  '/:id',
+  (req, res, next) => new ProductsController(req, res, next).getProductById(),
+);
+
 module.exports = { productsRoute };

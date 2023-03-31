@@ -13,6 +13,16 @@ class ProductsController {
     const response = await this.productsService.getAllProducts();
     return this.res.status(StatusCodes.OK).json(response);
   }
+
+  async getProductById() {
+    const { id } = this.req.params;
+    const response = await this.productsService.getProductById(id);
+    if (response === 404) {
+      return this.res.status(StatusCodes.NOT_FOUND)
+        .json({ message: 'No product found' });
+    }
+    return this.res.status(StatusCodes.OK).json(response);
+  }
 }
 
 module.exports = { ProductsController };

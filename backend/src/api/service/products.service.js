@@ -1,3 +1,4 @@
+const { StatusCodes } = require('http-status-codes');
 const { Products } = require('../../database/models');
 
 class ProductsService {
@@ -8,6 +9,12 @@ class ProductsService {
   async getAllProducts() {
     const allProducts = await this.productsModel.findAll();
     return allProducts;
+  }
+
+  async getProductById(productId) {
+    const product = await this.productsModel.findByPk(productId);
+    if (!product) return StatusCodes.NOT_FOUND;
+    return product;
   }
 }
 
