@@ -23,6 +23,15 @@ class UserController {
     }
     return this.res.status(StatusCodes.OK).json(response);
   }
+
+  async loginUser() {
+    const response = await this.userService.loginUser(this.req.body);
+    if (response === 401) {
+      return this.res.status(StatusCodes.UNAUTHORIZED)
+        .json({ message: 'Email or password is invalid' });
+    }
+    return this.res.status(StatusCodes.OK).json(response);
+  }
 }
 
 module.exports = { UserController };
