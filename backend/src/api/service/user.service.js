@@ -17,7 +17,7 @@ class UserService {
 
   async validateByEmail(email) {
     const validation = await this.userModel.findOne({ where: { email } });
-    if (validation.email === email) return StatusCodes.CONFLICT;
+    if (validation && validation.email === email) return StatusCodes.CONFLICT;
     return validation;
   }
 
