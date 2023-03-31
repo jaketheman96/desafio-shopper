@@ -28,6 +28,17 @@ class SalesController {
     await this.salesService.postSale(this.req.body);
     return this.res.status(StatusCodes.CREATED).json({ message: 'Sale created' });
   }
+
+  async editSaleStatusById() {
+    const { body, params: { id } } = this.req;
+    const saleStatus = await this.salesService.editSaleStatusById(id, body.status);
+    if (saleStatus === 404) {
+      return this.res.status(StatusCodes.NOT_FOUND)
+        .json({ message: 'Id not found' });
+    }
+    return this.res.status(StatusCodes.OK)
+      .json({ message: `Status alterado para ${saleStatus}` });
+  }
 }
 
 module.exports = { SalesController };

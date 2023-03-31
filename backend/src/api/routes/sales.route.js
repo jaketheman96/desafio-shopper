@@ -22,4 +22,10 @@ salesRoutes.post(
   (req, res, next) => new SalesController(req, res, next).postSale(),
 );
 
+salesRoutes.put(
+  '/:id',
+  (req, res, next) => new TokenValidator(req, res, next).validator(),
+  (req, res, next) => new SalesController(req, res, next).editSaleStatusById(),
+);
+
 module.exports = { salesRoutes };

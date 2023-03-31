@@ -57,6 +57,16 @@ class SalesService {
       await this.salesProductsModel.bulkCreate(newProducts);
     });
   }
+
+  async editSaleStatusById(saleId, saleStatus) {
+    const saleIdValidation = await this.getSaleById(saleId);
+    if (saleIdValidation === 404) return StatusCodes.NOT_FOUND;
+    await this.salesModel.update(
+      { status: saleStatus },
+      { where: { id: saleId } },
+    );
+    return saleStatus;
+  }
 }
 
 module.exports = { SalesService };
