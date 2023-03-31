@@ -23,6 +23,11 @@ class SalesController {
     }
     return this.res.status(StatusCodes.OK).json(response);
   }
+
+  async postSale() {
+    await this.salesService.postSale(this.req.body);
+    return this.res.status(StatusCodes.CREATED).json({ message: 'Sale created' });
+  }
 }
 
 module.exports = { SalesController };

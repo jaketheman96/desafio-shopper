@@ -6,21 +6,23 @@ const SaleProductModel = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         foreignKey: true,
+        field: 'sale_id',
+        primaryKey: true,
         references: {
           model: 'Sales',
           key: 'id',
         },
-        field: 'sale_id',
       },
       productId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         foreignKey: true,
+        primaryKey: true,
+        field: 'product_id',
         references: {
           model: 'Products',
           key: 'id',
         },
-        field: 'product_id',
       },
       quantity: {
         type: DataTypes.INTEGER,
