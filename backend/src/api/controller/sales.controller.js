@@ -39,6 +39,16 @@ class SalesController {
     return this.res.status(StatusCodes.OK)
       .json({ message: `Status alterado para ${saleStatus}` });
   }
+
+  async deleteSale() {
+    const { id } = this.req.params;
+    const destroySale = await this.salesService.deleteSale(id);
+    if (destroySale === 404) {
+      return this.res.status(StatusCodes.NOT_FOUND)
+        .json({ message: 'Id not found' });
+    }
+    return this.res.status(StatusCodes.OK).json({ message: 'Sale deleted' });
+  }
 }
 
 module.exports = { SalesController };

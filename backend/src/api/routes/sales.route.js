@@ -28,4 +28,10 @@ salesRoutes.put(
   (req, res, next) => new SalesController(req, res, next).editSaleStatusById(),
 );
 
+salesRoutes.delete(
+  '/:id',
+  (req, res, next) => new TokenValidator(req, res, next).validator(),
+  (req, res, next) => new SalesController(req, res, next).deleteSale(),
+);
+
 module.exports = { salesRoutes };

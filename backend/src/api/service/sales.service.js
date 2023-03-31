@@ -67,6 +67,12 @@ class SalesService {
     );
     return saleStatus;
   }
+
+  async deleteSale(saleId) {
+    const saleIdValidation = await this.getSaleById(saleId);
+    if (saleIdValidation === 404) return StatusCodes.NOT_FOUND;
+    await this.salesModel.destroy({ where: { id: Number(saleId) } });
+  }
 }
 
 module.exports = { SalesService };

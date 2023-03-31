@@ -8,6 +8,8 @@ module.exports = {
         allowNull: false,
         foreignKey: true,
         primaryKey: true,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         field: 'sale_id',
         references: {
           model: 'Sales',
@@ -19,6 +21,8 @@ module.exports = {
         allowNull: false,
         foreignKey: true,
         primaryKey: true,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         field: 'product_id',
         references: {
           model: 'Products',

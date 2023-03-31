@@ -8,6 +8,8 @@ const SaleProductModel = (sequelize, DataTypes) => {
         foreignKey: true,
         field: 'sale_id',
         primaryKey: true,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         references: {
           model: 'Sales',
           key: 'id',
@@ -19,6 +21,8 @@ const SaleProductModel = (sequelize, DataTypes) => {
         foreignKey: true,
         primaryKey: true,
         field: 'product_id',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         references: {
           model: 'Products',
           key: 'id',
