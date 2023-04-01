@@ -31,6 +31,11 @@ const SaleModel = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      totalPrice: {
+        type: DataTypes.DECIMAL(7, 2),
+        allowNull: false,
+        field: 'total_price',
+      }
     },
     {
       timestamps: false,

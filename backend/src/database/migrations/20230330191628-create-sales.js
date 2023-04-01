@@ -35,6 +35,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      totalPrice: {
+        type: Sequelize.DECIMAL(7,2),
+        allowNull: false,
+        field: 'total_price',
+      }
     });
   },
 

@@ -1,4 +1,3 @@
-// const { StatusCodes } = require('http-status-codes');
 const { StatusCodes } = require('http-status-codes');
 const { ProductsService } = require('../api/service/products.service');
 const { Products } = require('../database/models');
