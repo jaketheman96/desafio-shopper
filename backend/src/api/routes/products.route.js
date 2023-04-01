@@ -10,7 +10,7 @@ productsRoute.get(
 
 productsRoute.get(
   '/:id',
-  (req, res, next) => new ProductsController(req, res, next).getProductById(),
+  (req, res, next) => new ProductsController(req, res, next).getQtyStock(),
 );
 
 module.exports = { productsRoute };

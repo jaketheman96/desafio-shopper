@@ -1,4 +1,5 @@
 const express = require('express');
+const { HandleSubtractQtyStock } = require('../../middlewares/HandleSubtractQtyStock');
 const { TokenValidator } = require('../../middlewares/TokenValidator');
 const { SalesController } = require('../controller/sales.controller');
 
@@ -19,6 +20,7 @@ salesRoutes.get(
 salesRoutes.post(
   '/',
   (req, res, next) => new TokenValidator(req, res, next).validator(),
+  (req, res, next) => new HandleSubtractQtyStock(req, res, next).handleProductQuantity(),
   (req, res, next) => new SalesController(req, res, next).postSale(),
 );
 

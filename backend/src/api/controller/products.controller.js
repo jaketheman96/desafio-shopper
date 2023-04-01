@@ -14,9 +14,9 @@ class ProductsController {
     return this.res.status(StatusCodes.OK).json(response);
   }
 
-  async getProductById() {
+  async getQtyStock() {
     const { id } = this.req.params;
-    const response = await this.productsService.getProductById(id);
+    const response = await this.productsService.getQtyStock(id);
     if (response === 404) {
       return this.res.status(StatusCodes.NOT_FOUND)
         .json({ message: 'No product found' });

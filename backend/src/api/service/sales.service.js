@@ -1,10 +1,12 @@
 const { StatusCodes } = require('http-status-codes');
 const { Sales, Users, Products, saleProducts } = require('../../database/models');
+const { ProductsService } = require('./products.service');
 
 class SalesService {
   constructor() {
     this.salesModel = Sales;
     this.salesProductsModel = saleProducts;
+    this.productsService = new ProductsService();
   }
 
   async getAllSales() {
@@ -49,10 +51,10 @@ class SalesService {
   async postSale(saleInfos) {
     const arrayOfProducts = saleInfos.products;
     await this.salesModel.create(saleInfos).then(async (newOrder) => {
-      const newProducts = arrayOfProducts.map((product) => ({
+      const newProducts = arrayOfProducts.map(({ productId, quantity }) => ({
         saleId: newOrder.id,
-        productId: product.productId,
-        quantity: product.quantity,
+        productId,
+        quantity,
       }));
       await this.salesProductsModel.bulkCreate(newProducts);
     });

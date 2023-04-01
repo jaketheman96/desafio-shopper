@@ -11,8 +11,11 @@ class ProductsService {
     return allProducts;
   }
 
-  async getProductById(productId) {
-    const product = await this.productsModel.findByPk(productId);
+  async getQtyStock(productId) {
+    const product = await this.productsModel.findByPk(
+      productId,
+      { attributes: { exclude: ['id', 'price'] } },
+    );
     if (!product) return StatusCodes.NOT_FOUND;
     return product;
   }
