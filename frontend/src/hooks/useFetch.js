@@ -3,7 +3,6 @@ import ShopperContext from '../context/ShopperContext';
 
 function useFetch() {
   const { setIsLoading } = useContext(ShopperContext);
-  const [data, setData] = useState();
   const [error, setError] = useState();
 
   const handleAllFetchMethods = async (route, fetchMethod, body, token) => {
@@ -24,7 +23,6 @@ function useFetch() {
       setIsLoading(true);
       const response = await fetch(`http://localhost:3001${route}`, requestOptions);
       const fetchData = await response.json();
-      setData(fetchData);
       return fetchData;
     } catch (err) {
       setError(err);
@@ -33,7 +31,7 @@ function useFetch() {
     }
   };
 
-  return { data, error, handleAllFetchMethods };
+  return { error, handleAllFetchMethods };
 }
 
 export default useFetch;
