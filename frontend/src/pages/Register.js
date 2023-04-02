@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ShopperContext from '../context/ShopperContext';
 import useFetch from '../hooks/useFetch';
@@ -7,6 +7,8 @@ function Register() {
   const navigate = useNavigate();
   const { setUserInfos } = useContext(ShopperContext);
   const { handleAllFetchMethods } = useFetch();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [showError, setShowError] = useState('');
   const [userData, setUserData] = useState({
     name: '',
     email: '',
@@ -14,6 +16,40 @@ function Register() {
     address: '',
     role: 'customer',
   });
+
+  useEffect(() => {
+    const nameValidator = () => {
+      const MINIMUM_NAME = 3;
+      const isNameValid = userData.name.length > MINIMUM_NAME;
+      return isNameValid;
+    };
+    const emailValidator = () => {
+      const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+      const isEmailValid = userData.email.match(emailRegex);
+      return isEmailValid;
+    };
+    const passwordValidator = () => {
+      const MINIMUM_PASSWORD = 6;
+      const isPasswordValid = userData.password.length > MINIMUM_PASSWORD;
+      return isPasswordValid;
+    };
+    const addressValidator = () => {
+      const MINIMUM_ADDRESS_LENGTH = 5;
+      const isAddressValid = userData.address.length > MINIMUM_ADDRESS_LENGTH;
+      return isAddressValid;
+    };
+    const handleButtonControl = () => {
+      const isNameValid = nameValidator();
+      const isEmailValid = emailValidator();
+      const isPasswordValid = passwordValidator();
+      const isAddressValid = addressValidator();
+      if (isNameValid && isEmailValid && isPasswordValid && isAddressValid) {
+        return setIsButtonDisabled(false);
+      }
+      return setIsButtonDisabled(true);
+    };
+    handleButtonControl();
+  }, [userData]);
 
   const handleInputsChange = ({ target }) => {
     const options = {
@@ -33,10 +69,19 @@ function Register() {
       userData,
       '',
     );
+    if (response.message) return setShowError(response.message);
     localStorage.setItem('user', JSON.stringify(response));
     setUserInfos(response);
     navigate('/products');
   };
+
+  useEffect(() => {
+    const TWO_SECONDS = 2000;
+    const handleTimeout = () => {
+      setTimeout(() => setShowError(''), TWO_SECONDS);
+    };
+    handleTimeout();
+  }, [showError]);
 
   return (
     <section>
@@ -60,8 +105,11 @@ function Register() {
         <button type="button" onClick={ () => navigate('/') }>
           Voltar
         </button>
-        <button type="submit" onClick={ handleSubmit }>Entrar</button>
+        <button type="submit" onClick={ handleSubmit } disabled={ isButtonDisabled }>
+          Entrar
+        </button>
       </form>
+      <p>{showError}</p>
     </section>
   );
 }
