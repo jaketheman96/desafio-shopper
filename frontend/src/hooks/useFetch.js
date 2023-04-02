@@ -23,7 +23,9 @@ function useFetch() {
     try {
       setIsLoading(true);
       const response = await fetch(`http://localhost:3001${route}`, requestOptions);
-      return setData(response.json());
+      const fetchData = await response.json();
+      setData(fetchData);
+      return fetchData;
     } catch (err) {
       setError(err);
     } finally {
