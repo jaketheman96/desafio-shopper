@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import ShopperContext from './ShopperContext';
 
 function ShopperProvider({ children }) {
-  const [firstState, setFirstState] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const globalState = useMemo(() => ({
-    firstState,
-    setFirstState,
-  }), [firstState]);
+    isLoading,
+    setIsLoading,
+  }), [isLoading]);
 
   return (
     <ShopperContext.Provider value={ globalState }>

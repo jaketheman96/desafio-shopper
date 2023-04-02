@@ -23,7 +23,7 @@ function Register() {
           Endereço:
           <input type="address" name="address" />
         </label>
-        <button type="button" onClick={ () => navigate('/login') }>
+        <button type="button" onClick={ () => navigate('/') }>
           Voltar
         </button>
         <button type="submit">Entrar</button>
