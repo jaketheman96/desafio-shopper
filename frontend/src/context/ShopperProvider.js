@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import ShopperContext from './ShopperContext';
 
 function ShopperProvider({ children }) {
