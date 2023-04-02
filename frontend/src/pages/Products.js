@@ -1,12 +1,10 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
+import React from 'react';
+import Navbar from '../components/Navbar';
 
 function Products() {
   return (
-    <>
-      <Navbar />
-    </>
-  )
+    <Navbar />
+  );
 }
 
-export default Products
+export default Products;

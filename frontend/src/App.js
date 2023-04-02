@@ -10,9 +10,9 @@ function App() {
     <div className="App">
       <ShopperProvider>
         <Routes>
-          <Route path='/' element={<Login />} />
-          <Route path='/products' element={<Products />} />
-          <Route path='/orders' element={<Orders />} />
+          <Route path="/" element={ <Login /> } />
+          <Route path="/products" element={ <Products /> } />
+          <Route path="/orders" element={ <Orders /> } />
         </Routes>
       </ShopperProvider>
     </div>
