@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ShopperContext from '../context/ShopperContext';
-import useFetch from '../hooks/useFetch';
+import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 
 function Register() {
   const navigate = useNavigate();
   const { setUserInfos } = useContext(ShopperContext);
-  const { handleAllFetchMethods } = useFetch();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showError, setShowError] = useState('');
   const [userData, setUserData] = useState({

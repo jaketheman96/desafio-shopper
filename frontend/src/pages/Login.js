@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useFetch from '../hooks/useFetch';
+import ShopperContext from '../context/ShopperContext';
+import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 
 function Login() {
   const navigate = useNavigate();
-  const { handleAllFetchMethods } = useFetch();
+  const { setIsLoading } = useContext(ShopperContext);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [showError, setShowError] = useState('');
   const [userInfos, setUserInfos] = useState({
     email: '',
     password: '',
@@ -43,12 +45,14 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     const response = await handleAllFetchMethods(
       '/user/login',
       'POST',
       userInfos,
       '',
     );
+    setIsLoading(false);
     if (response.message) return setShowError(response.message);
     localStorage.setItem('user', JSON.stringify(response));
     setUserInfos(response);
@@ -63,6 +67,14 @@ function Login() {
       break;
     }
   };
+
+  useEffect(() => {
+    const TWO_SECONDS = 2000;
+    const handleTimeout = () => {
+      setTimeout(() => setShowError(''), TWO_SECONDS);
+    };
+    handleTimeout();
+  }, [showError]);
 
   return (
     <section>
@@ -82,6 +94,7 @@ function Login() {
           Entrar
         </button>
       </form>
+      <p>{showError}</p>
     </section>
   );
 }
