@@ -17,11 +17,6 @@ const SaleModel = (sequelize, DataTypes) => {
           key: 'id',
         },
       },
-      saleNotes: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        field: 'sale_notes',
-      },
       saleDate: {
         type: DataTypes.DATE,
         field: 'sale_date',

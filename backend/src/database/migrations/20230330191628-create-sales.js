@@ -21,11 +21,6 @@ module.exports = {
           key: 'id',
         },
       },
-      saleNotes: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        field: 'sale_notes',
-      },
       saleDate: {
         type: Sequelize.DATE,
         field: 'sale_date',
