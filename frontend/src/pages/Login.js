@@ -5,18 +5,18 @@ import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 
 function Login() {
   const navigate = useNavigate();
-  const { setIsLoading } = useContext(ShopperContext);
+  const { setIsLoading, setUserInfos } = useContext(ShopperContext);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showError, setShowError] = useState('');
-  const [userInfos, setUserInfos] = useState({
+  const [userData, setUserData] = useState({
     email: '',
     password: '',
   });
 
   const handleInputsChange = ({ target }) => {
     const options = {
-      email: () => setUserInfos({ ...userInfos, email: target.value }),
-      password: () => setUserInfos({ ...userInfos, password: target.value }),
+      email: () => setUserData({ ...userData, email: target.value }),
+      password: () => setUserData({ ...userData, password: target.value }),
     };
     options[target.name]();
   };
@@ -24,12 +24,12 @@ function Login() {
   useEffect(() => {
     const emailValidator = () => {
       const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-      const isEmailValid = userInfos.email.match(emailRegex);
+      const isEmailValid = userData.email.match(emailRegex);
       return isEmailValid;
     };
     const passwordValidator = () => {
       const MINIMUM_PASSWORD_LENGTH = 6;
-      const isPasswordValid = userInfos.password.length > MINIMUM_PASSWORD_LENGTH;
+      const isPasswordValid = userData.password.length > MINIMUM_PASSWORD_LENGTH;
       return isPasswordValid;
     };
     const handleButtonControl = () => {
@@ -41,7 +41,7 @@ function Login() {
       return setIsButtonDisabled(true);
     };
     handleButtonControl();
-  }, [userInfos]);
+  }, [userData]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -49,7 +49,7 @@ function Login() {
     const response = await handleAllFetchMethods(
       '/user/login',
       'POST',
-      userInfos,
+      userData,
       '',
     );
     setIsLoading(false);

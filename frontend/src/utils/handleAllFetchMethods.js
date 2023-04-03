@@ -17,7 +17,6 @@ const handleAllFetchMethods = async (route, fetchMethod, body, token) => {
     const fetchData = await response.json();
     return fetchData;
   } catch (err) {
-    console.log(err);
     return err;
   }
 };

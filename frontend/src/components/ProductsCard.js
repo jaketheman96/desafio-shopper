@@ -26,7 +26,7 @@ function ProductsCard({ id, name, price, qtyStock, handleQuantity }) {
 
   return (
     <article>
-      <p>{name}</p>
+      <p>{name.replace('.', ',')}</p>
       <p>{`${qtyStock} unidades`}</p>
       <p>{`R$${price}`.replace('.', ',')}</p>
       <button type="button" name="increase" onClick={ handleIncreaseQuantity }>

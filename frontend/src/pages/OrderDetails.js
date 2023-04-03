@@ -48,7 +48,7 @@ function OrderDetails() {
           <p>{`Data da compra: ${formatDate()}`}</p>
           {orderDetails.products.map((product, index) => (
             <div key={ index }>
-              <p>{`Produto: ${product.name}`}</p>
+              <p>{`Item ${String(index + 1).padStart(2, '0')} - ${product.name}`}</p>
               <p>{`Preço: R$${product.price.replace('.', ',')}`}</p>
               <p>{`Qtd: ${String(product.saleProducts.quantity).padStart(2, '0')}`}</p>
             </div>
