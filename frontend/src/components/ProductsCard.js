@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 function ProductsCard({ id, name, price, qtyStock, handleQuantity }) {
   const [quantity, setQuantity] = useState(0);
-  console.log(id);
 
   const handleIncreaseQuantity = () => {
     setQuantity(quantity + 1);

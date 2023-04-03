@@ -6,17 +6,42 @@ function ShopperProvider({ children }) {
   const [userInfos, setUserInfos] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState([]);
+  const [totalCartPrice, setTotalCartPrice] = useState('');
 
   useEffect(() => {
-    const getUserFromStorage = () => {
+    const getItensFromStorage = () => {
       const user = localStorage.getItem('user');
+      const storageCart = localStorage.getItem('cart');
       if (user) {
         const parsedUser = JSON.parse(user);
-        return setUserInfos(parsedUser);
+        setUserInfos(parsedUser);
+      }
+      if (storageCart) {
+        const parsedCart = JSON.parse(storageCart);
+        setCart(parsedCart);
       }
     };
-    getUserFromStorage();
+    getItensFromStorage();
   }, []);
+
+  useEffect(() => {
+    const INITIAL_PRICE = 0;
+    const handleTotalPrice = () => {
+      const unityPrice = cart.map((item) => {
+        if (item.quantity >= 1) {
+          const unityPriceEach = item.quantity * Number(item.price);
+          return unityPriceEach;
+        }
+        return INITIAL_PRICE;
+      });
+      const totalPrice = unityPrice.reduce(
+        (acc, current) => acc + current,
+        INITIAL_PRICE,
+      );
+      setTotalCartPrice(String(totalPrice.toFixed(2)));
+    };
+    handleTotalPrice();
+  }, [cart]);
 
   const globalState = useMemo(() => ({
     userInfos,
@@ -25,7 +50,9 @@ function ShopperProvider({ children }) {
     setIsLoading,
     cart,
     setCart,
-  }), [isLoading, userInfos, cart]);
+    totalCartPrice,
+    setTotalCartPrice,
+  }), [isLoading, userInfos, cart, totalCartPrice]);
 
   return (
     <ShopperContext.Provider value={ globalState }>

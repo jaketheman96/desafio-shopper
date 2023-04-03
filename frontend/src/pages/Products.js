@@ -5,7 +5,7 @@ import ShopperContext from '../context/ShopperContext';
 import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 
 function Products() {
-  const { setCart, cart } = useContext(ShopperContext);
+  const { setCart, cart, totalCartPrice } = useContext(ShopperContext);
   const [allProducts, setAllProducts] = useState();
 
   useEffect(() => {
@@ -53,6 +53,7 @@ function Products() {
             handleQuantity={ handleQuantity }
           />
         ))}
+        <p>{`Total: R$${totalCartPrice.replace('.', ',')}`}</p>
       </section>
     </>
   );
