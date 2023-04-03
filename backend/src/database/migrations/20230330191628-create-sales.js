@@ -21,6 +21,11 @@ module.exports = {
           key: 'id',
         },
       },
+      deliveryDate: {
+        type: Sequelize.DATE,
+        field: 'delivery_date',
+        allowNull: false,
+      },
       saleDate: {
         type: Sequelize.DATE,
         field: 'sale_date',

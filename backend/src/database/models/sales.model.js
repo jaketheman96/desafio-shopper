@@ -17,6 +17,11 @@ const SaleModel = (sequelize, DataTypes) => {
           key: 'id',
         },
       },
+      deliveryDate: {
+        type: DataTypes.DATE,
+        field: 'delivery_date',
+        allowNull: false,
+      },
       saleDate: {
         type: DataTypes.DATE,
         field: 'sale_date',
