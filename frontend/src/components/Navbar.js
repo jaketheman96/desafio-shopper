@@ -13,7 +13,7 @@ function Navbar() {
   };
 
   return (
-    <header>
+    <nav>
       <ul>
         <li>
           <Link to="/products">Produtos</Link>
@@ -27,7 +27,7 @@ function Navbar() {
           </button>
         </li>
       </ul>
-    </header>
+    </nav>
   );
 }
 

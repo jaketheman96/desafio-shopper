@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductsCard from '../components/ProductsCard';
 import ShopperContext from '../context/ShopperContext';
 import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 
 function Products() {
+  const navigate = useNavigate();
   const { setCart, cart, totalCartPrice } = useContext(ShopperContext);
   const [allProducts, setAllProducts] = useState();
 
@@ -53,7 +55,12 @@ function Products() {
             handleQuantity={ handleQuantity }
           />
         ))}
-        <p>{`Total: R$${totalCartPrice.replace('.', ',')}`}</p>
+        <article>
+          <p>{`Total: R$${totalCartPrice.replace('.', ',')}`}</p>
+          <button type="button" onClick={ () => navigate('/cart') }>
+            Ir para o carrinho
+          </button>
+        </article>
       </section>
     </>
   );

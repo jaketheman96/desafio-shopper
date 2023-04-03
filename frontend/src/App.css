@@ -2,3 +2,6 @@
   text-align: center;
 }
 
+.App table {
+  margin: 0 auto;
+}
