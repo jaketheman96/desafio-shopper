@@ -1,16 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { formatingDate } from '../utils/formatDates';
 
 function OrdersCard({ index, id, status, totalPrice, saleDate }) {
-  const date = new Date(saleDate);
-  const fullDate = date.toLocaleDateString('pt-br', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  const fullDate = formatingDate(saleDate);
   const TWO_ZEROS = 2;
 
   return (
