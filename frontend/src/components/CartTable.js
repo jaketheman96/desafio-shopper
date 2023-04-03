@@ -1,15 +1,41 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ShopperContext from '../context/ShopperContext';
+import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 
 function CartTable() {
   const navigate = useNavigate();
-  const { cart, setCart } = useContext(ShopperContext);
+  const {
+    cart,
+    setCart,
+    totalCartPrice,
+    userInfos,
+    setIsLoading,
+  } = useContext(ShopperContext);
 
   const handleRemoveButton = ({ target }) => {
     const newCart = cart.filter((item) => item.id !== Number(target.id));
     setCart(newCart);
     localStorage.setItem('cart', JSON.stringify(newCart));
+  };
+
+  const handleSubmitCart = async () => {
+    const payload = {
+      userId: Number(userInfos.id),
+      saleDate: new Date(),
+      status: 'Pendente',
+      products: cart.map((item) => ({ productId: item.id, quantity: item.quantity })),
+      totalPrice: Number(totalCartPrice),
+    };
+    setIsLoading(true);
+    await handleAllFetchMethods(
+      '/sales',
+      'POST',
+      payload,
+      userInfos.token,
+    );
+    setIsLoading(false);
+    navigate('/orders');
   };
 
   return (
@@ -45,10 +71,11 @@ function CartTable() {
           ))}
         </tbody>
       </table>
+      <p>{`Total: R$${totalCartPrice.replace('.', ',')}`}</p>
       <button type="button" onClick={ () => navigate('/products') }>
         Voltar
       </button>
-      <button type="button">
+      <button type="button" onClick={ handleSubmitCart }>
         Continuar
       </button>
     </section>
