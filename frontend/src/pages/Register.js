@@ -5,7 +5,7 @@ import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 
 function Register() {
   const navigate = useNavigate();
-  const { setUserInfos } = useContext(ShopperContext);
+  const { setUserInfos, setIsLoading } = useContext(ShopperContext);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showError, setShowError] = useState('');
   const [userData, setUserData] = useState({
@@ -62,12 +62,14 @@ function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     const response = await handleAllFetchMethods(
       '/user/register',
       'POST',
       userData,
       '',
     );
+    setIsLoading(false);
     if (response.message) return setShowError(response.message);
     localStorage.setItem('user', JSON.stringify(response));
     setUserInfos(response);

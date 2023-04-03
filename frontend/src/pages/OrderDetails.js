@@ -33,9 +33,9 @@ function OrderDetails() {
     getOrderDetails();
   }, [userInfos, id, setIsLoading]);
 
-  const formatDate = () => {
+  const formatDate = (dateToFormat) => {
     if (orderDetails) {
-      return formatingDate(orderDetails.saleDate);
+      return formatingDate(dateToFormat);
     }
   };
 
@@ -83,13 +83,14 @@ function OrderDetails() {
       {orderDetails && (
         <section>
           <h2>Detalhes do pedido:</h2>
-          <p>{`Id: ${String(orderDetails.id).padStart(2, '0')}`}</p>
+          <p>{`Id do pedido: ${String(orderDetails.id).padStart(2, '0')}`}</p>
           <p>{`Status do pedido: ${orderDetails.status}`}</p>
-          <p>{`Data da compra: ${formatDate()}`}</p>
+          <p>{`Data do pedido: ${formatDate(orderDetails.saleDate)}`}</p>
+          <p>{`Data da entrega: ${formatDate(orderDetails.deliveryDate)}`}</p>
           {orderDetails.products.map((product, index) => (
             <div key={ index }>
-              <p>{`Item ${String(index + 1).padStart(2, '0')} - ${product.name}`}</p>
-              <p>{`Preço: R$${product.price.replace('.', ',')}`}</p>
+              <p>{`Item ${String(index + 1)} - ${product.name}`}</p>
+              <p>{`Preço unitário: R$${product.price.replace('.', ',')}`}</p>
               <p>{`Qtd: ${String(product.saleProducts.quantity).padStart(2, '0')}`}</p>
             </div>
           ))}

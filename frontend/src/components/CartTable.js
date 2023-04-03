@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ShopperContext from '../context/ShopperContext';
 import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
@@ -6,6 +6,7 @@ import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 function CartTable() {
   const navigate = useNavigate();
   const [deliveryDate, setDeliveryDate] = useState();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const {
     cart,
     setCart,
@@ -45,6 +46,18 @@ function CartTable() {
   const handleDateChange = ({ target }) => {
     setDeliveryDate(target.value);
   };
+
+  useEffect(() => {
+    const buttonControl = () => {
+      const todaysDate = new Date();
+      const dateDelivery = new Date(deliveryDate);
+      if (!deliveryDate || dateDelivery < todaysDate) {
+        return setIsButtonDisabled(true);
+      }
+      setIsButtonDisabled(false);
+    };
+    buttonControl();
+  }, [deliveryDate]);
 
   return (
     <section>
@@ -91,7 +104,7 @@ function CartTable() {
       <button type="button" onClick={ () => navigate('/products') }>
         Voltar
       </button>
-      <button type="button" onClick={ handleSubmitCart }>
+      <button type="button" onClick={ handleSubmitCart } disabled={ isButtonDisabled }>
         Continuar
       </button>
     </section>

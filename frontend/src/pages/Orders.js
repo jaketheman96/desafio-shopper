@@ -49,6 +49,7 @@ function Orders() {
             saleDate={ order.saleDate }
             status={ order.status }
             totalPrice={ order.totalPrice }
+            deliveryDate={ order.deliveryDate }
           />
         ))}
       </section>
