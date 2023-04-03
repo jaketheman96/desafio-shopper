@@ -48,6 +48,27 @@ class SalesService {
     return sale;
   }
 
+  async getSaleByUserId(userId) {
+    const sales = await this.salesModel.findAll({
+      where: { userId },
+      include: [
+        {
+          model: Users,
+          as: 'user',
+          attributes: { exclude: ['password', 'email', 'role'] },
+        },
+        {
+          model: Products,
+          as: 'products',
+          attributes: { exclude: ['qtyStock'] },
+          through: { attributes: ['quantity'] },
+        },
+      ],
+    });
+    if (!sales) return StatusCodes.NOT_FOUND;
+    return sales;
+  }
+
   async postSale(saleInfos) {
     const arrayOfProducts = saleInfos.products;
     await this.salesModel.create(saleInfos).then(async (newOrder) => {

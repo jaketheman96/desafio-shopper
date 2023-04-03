@@ -17,6 +17,12 @@ salesRoutes.get(
   (req, res, next) => new SalesController(req, res, next).getSaleById(),
 );
 
+salesRoutes.get(
+  '/user/:userId',
+  (req, res, next) => new TokenValidator(req, res, next).validator(),
+  (req, res, next) => new SalesController(req, res, next).getSaleByUserId(),
+);
+
 salesRoutes.post(
   '/',
   (req, res, next) => new TokenValidator(req, res, next).validator(),

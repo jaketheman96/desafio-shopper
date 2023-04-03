@@ -24,6 +24,16 @@ class SalesController {
     return this.res.status(StatusCodes.OK).json(response);
   }
 
+  async getSaleByUserId() {
+    const { userId } = this.req.params;
+    const response = await this.salesService.getSaleByUserId(userId);
+    if (response === 404) {
+      return this.res.status(StatusCodes.NOT_FOUND)
+        .json({ message: 'User id is invalid' });
+    }
+    return this.res.status(StatusCodes.OK).json(response);
+  }
+
   async postSale() {
     await this.salesService.postSale(this.req.body);
     return this.res.status(StatusCodes.CREATED).json({ message: 'Sale created' });
