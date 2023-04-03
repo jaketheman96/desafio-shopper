@@ -15,7 +15,7 @@ function OrdersCard({ index, id, status, totalPrice, saleDate }) {
 
   return (
     <article>
-      <Link to={ `/order/details/${id}` }>
+      <Link to={ `/orders/${id}` }>
         <p>{`Pedido: ${String(index + 1).padStart(TWO_ZEROS + 1, '0')}`}</p>
         <p>{`Status: ${status}`}</p>
         <p>{`R$${totalPrice.replace('.', ',')}`}</p>

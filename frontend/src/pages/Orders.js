@@ -5,25 +5,27 @@ import ShopperContext from '../context/ShopperContext';
 import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 
 function Orders() {
-  const { userInfos } = useContext(ShopperContext);
+  const { userInfos, setIsLoading } = useContext(ShopperContext);
   const [allUserOrders, setAllUserOrders] = useState([]);
   const [showError, setShowError] = useState('');
 
   useEffect(() => {
     const getUserOrders = async () => {
       if (userInfos) {
+        setIsLoading(true);
         const orders = await handleAllFetchMethods(
           `/sales/user/${userInfos.id}`,
           'GET',
           null,
           userInfos.token,
         );
+        setIsLoading(false);
         if (orders.message) return setShowError(orders.message);
         return setAllUserOrders(orders);
       }
     };
     getUserOrders();
-  }, [userInfos]);
+  }, [userInfos, setIsLoading]);
 
   return (
     <>
