@@ -5,6 +5,7 @@ import ShopperContext from './ShopperContext';
 function ShopperProvider({ children }) {
   const [userInfos, setUserInfos] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     const getUserFromStorage = () => {
@@ -22,7 +23,9 @@ function ShopperProvider({ children }) {
     setUserInfos,
     isLoading,
     setIsLoading,
-  }), [isLoading, userInfos]);
+    cart,
+    setCart,
+  }), [isLoading, userInfos, cart]);
 
   return (
     <ShopperContext.Provider value={ globalState }>
