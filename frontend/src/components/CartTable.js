@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ShopperContext from '../context/ShopperContext';
 import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 
 function CartTable() {
   const navigate = useNavigate();
+  const [deliveryDate, setDeliveryDate] = useState();
   const {
     cart,
     setCart,
@@ -26,6 +27,7 @@ function CartTable() {
       status: 'Pendente',
       products: cart.map((item) => ({ productId: item.id, quantity: item.quantity })),
       totalPrice: Number(totalCartPrice),
+      deliveryDate,
     };
     setIsLoading(true);
     await handleAllFetchMethods(
@@ -38,6 +40,10 @@ function CartTable() {
     setCart([]);
     setIsLoading(false);
     navigate('/orders');
+  };
+
+  const handleDateChange = ({ target }) => {
+    setDeliveryDate(target.value);
   };
 
   return (
@@ -58,7 +64,7 @@ function CartTable() {
             <tr key={ index }>
               <td>{index + 1}</td>
               <td>{item.name}</td>
-              <td>{item.price}</td>
+              <td>{`R$${String(item.price).replace('.', ',')}`}</td>
               <td>{item.quantity}</td>
               <td>
                 <button
@@ -74,6 +80,14 @@ function CartTable() {
         </tbody>
       </table>
       <p>{`Total: R$${totalCartPrice.replace('.', ',')}`}</p>
+      <label htmlFor="delivery-date">
+        Selecione uma data para a entrega:
+        <input
+          type="date"
+          name="delivery-date"
+          onChange={ handleDateChange }
+        />
+      </label>
       <button type="button" onClick={ () => navigate('/products') }>
         Voltar
       </button>
