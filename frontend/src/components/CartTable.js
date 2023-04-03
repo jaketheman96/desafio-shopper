@@ -34,6 +34,8 @@ function CartTable() {
       payload,
       userInfos.token,
     );
+    localStorage.removeItem('cart');
+    setCart([]);
     setIsLoading(false);
     navigate('/orders');
   };

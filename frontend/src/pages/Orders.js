@@ -1,8 +1,13 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
+import OrdersCard from '../components/OrdersCard';
 
 function Orders() {
   return (
-    <div>Orders</div>
+    <>
+      <Navbar />
+      <OrdersCard />
+    </>
   );
 }
 

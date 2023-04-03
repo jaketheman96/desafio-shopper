@@ -27,18 +27,22 @@ function ShopperProvider({ children }) {
   useEffect(() => {
     const INITIAL_PRICE = 0;
     const handleTotalPrice = () => {
-      const unityPrice = cart.map((item) => {
-        if (item.quantity >= 1) {
-          const unityPriceEach = item.quantity * Number(item.price);
-          return unityPriceEach;
-        }
-        return INITIAL_PRICE;
-      });
-      const totalPrice = unityPrice.reduce(
-        (acc, current) => acc + current,
-        INITIAL_PRICE,
-      );
-      setTotalCartPrice(String(totalPrice.toFixed(2)));
+      if (cart.length !== 0) {
+        const unityPrice = cart.map((item) => {
+          if (item.quantity >= 1) {
+            const unityPriceEach = item.quantity * Number(item.price);
+            return unityPriceEach;
+          }
+          return INITIAL_PRICE;
+        });
+        const totalPrice = unityPrice.reduce(
+          (acc, current) => acc + current,
+          INITIAL_PRICE,
+        );
+        setTotalCartPrice(String(totalPrice.toFixed(2)));
+      } else {
+        setTotalCartPrice(INITIAL_PRICE.toFixed(2));
+      }
     };
     handleTotalPrice();
   }, [cart]);
