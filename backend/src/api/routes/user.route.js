@@ -23,4 +23,9 @@ userRoutes.post(
   (req, res, next) => new UserController(req, res, next).registerUser(),
 );
 
+userRoutes.delete(
+  '/:id',
+  (req, res, next) => new UserController(req, res, next).deleteUser(),
+);
+
 module.exports = { userRoutes };

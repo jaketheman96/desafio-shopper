@@ -63,6 +63,12 @@ class UserService {
       token,
     };
   }
+
+  async deleteUser(userId) {
+    const userValidator = await this.getUserById(userId);
+    if (userValidator === 404) return StatusCodes.NOT_FOUND;
+    await this.userModel.destroy({ where: { id: userId } });
+  }
 }
 
 module.exports = { UserService };

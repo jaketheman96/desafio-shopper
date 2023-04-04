@@ -41,6 +41,16 @@ class UserController {
     }
     return this.res.status(StatusCodes.CREATED).json(response);
   }
+
+  async deleteUser() {
+    const { id } = this.req.params;
+    const response = await this.userService.deleteUser(id);
+    if (response === 404) {
+      return this.res.status(StatusCodes.NOT_FOUND)
+        .json({ message: 'User not found' });
+    }
+    return this.res.status(StatusCodes.OK).json({ message: 'User deleted' });
+  }
 }
 
 module.exports = { UserController };
