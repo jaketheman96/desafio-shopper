@@ -91,7 +91,9 @@ function OrderDetails() {
             <div key={ index }>
               <p>{`Item ${String(index + 1)} - ${product.name}`}</p>
               <p>{`Preço unitário: R$${product.price.replace('.', ',')}`}</p>
-              <p>{`Qtd: ${String(product.saleProducts.quantity).padStart(2, '0')}`}</p>
+              <p>
+                {`Qtd: ${product.saleProducts.quantity} unidades`}
+              </p>
             </div>
           ))}
           <h3>{`Total: R$${orderDetails.totalPrice.replace('.', ',')}`}</h3>

@@ -64,6 +64,7 @@ function Login() {
       navigate('/orders');
       break;
     default:
+      navigate('/admin');
       break;
     }
   };

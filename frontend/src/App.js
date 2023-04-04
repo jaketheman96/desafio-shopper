@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Loading from './components/Loading';
 import ShopperContext from './context/ShopperContext';
+import Admin from './pages/Admin';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import OrderDetails from './pages/OrderDetails';
@@ -22,6 +23,7 @@ function App() {
         <Route path="/register" element={ <Register /> } />
         <Route path="/cart" element={ <Cart /> } />
         <Route path="/orders/:id" element={ <OrderDetails /> } />
+        <Route path="/admin" element={ <Admin /> } />
       </Routes>
       {isLoading && <Loading />}
     </div>
