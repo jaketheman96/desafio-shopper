@@ -9,7 +9,7 @@ const handleAllFetchMethods = async (route, fetchMethod, body, token) => {
       Authorization: token,
     },
   };
-  if (fetchMethod === 'GET') {
+  if (fetchMethod === 'GET' || fetchMethod === 'DELETE') {
     delete requestOptions.body;
   }
   try {

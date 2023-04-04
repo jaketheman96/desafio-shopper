@@ -21,13 +21,15 @@ function AddNewUserForm() {
     options[target.name]();
   };
 
-  const handleSubmitForm = async () => {
+  const handleSubmitForm = async (event) => {
+    event.preventDefault();
     await handleAllFetchMethods(
       '/user/register',
       'POST',
       newUserInfos,
       '',
     );
+    window.location.reload();
   };
 
   return (
