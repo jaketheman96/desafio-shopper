@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ShopperContext from '../context/ShopperContext';
 import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
+import shopperImg from '../images/shopper-logo.png';
 
 function Login() {
   const navigate = useNavigate();
@@ -57,15 +58,15 @@ function Login() {
     localStorage.setItem('user', JSON.stringify(response));
     setUserInfos(response);
     switch (response.role) {
-    case 'customer':
-      navigate('/products');
-      break;
-    case 'employee':
-      navigate('/orders');
-      break;
-    default:
-      navigate('/admin');
-      break;
+      case 'customer':
+        navigate('/products');
+        break;
+      case 'employee':
+        navigate('/orders');
+        break;
+      default:
+        navigate('/admin');
+        break;
     }
   };
 
@@ -78,24 +79,60 @@ function Login() {
   }, [showError]);
 
   return (
-    <section>
-      <form onSubmit={ handleSubmit }>
-        <label htmlFor="email">
-          Email:
-          <input type="email" name="email" onChange={ handleInputsChange } />
-        </label>
-        <label htmlFor="password">
-          Password:
-          <input type="password" name="password" onChange={ handleInputsChange } />
-        </label>
-        <button type="button" onClick={ () => navigate('/register') }>
-          Ainda não tenho conta
-        </button>
-        <button type="submit" disabled={ isButtonDisabled } onClick={ handleSubmit }>
-          Entrar
-        </button>
-      </form>
-      <p>{showError}</p>
+    <section className="min-h-screen flex items-center justify-center">
+      <article>
+        <img
+          src={shopperImg}
+          alt="shopper-logo"
+          className="md:w-96 w-0"
+        />
+      </article>
+      <hr className="md:h-80 md:w-0.5 md:bg-slate-900 md:mx-6 rounded" />
+      <article className="flex flex-col px-8 text-center">
+        <h1 className="mb-7 text-3xl font-semibold">
+          Login
+        </h1>
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <label htmlFor="email" className="flex flex-col">
+            <p className="text-start mb-2 mx-2">Email:</p>
+            <input
+              type="email"
+              name="email"
+              onChange={handleInputsChange}
+              placeholder="Ex: shopper@email.com"
+              className="rounded-xl w-80 p-2 px-3 mb-8 bg-gray-800 text-white text-sm"
+            />
+          </label>
+          <label htmlFor="password" className="flex flex-col">
+            <p className="text-start mb-2 mx-2">Password:</p>
+            <input
+              type="password"
+              name="password"
+              onChange={handleInputsChange}
+              placeholder="Ex: senha123"
+              className="rounded-xl p-2 w-80 px-3 mb-8 bg-gray-800 text-white text-sm"
+            />
+          </label>
+          <div className="flex justify-around">
+            <button
+              type="button"
+              onClick={() => navigate('/register')}
+              className="bg-emerald-700 rounded-lg p-0.5 px-2 w-24 text-white hover:bg-emerald-400 hover:text-black"
+            >
+              Registrar
+            </button>
+            <button
+              type="submit"
+              disabled={isButtonDisabled}
+              onClick={handleSubmit}
+              className="bg-emerald-700 rounded-lg p-0.5 px-2 w-24 text-white hover:bg-emerald-400 hover:text-black"
+            >
+              Entrar
+            </button>
+          </div>
+        </form>
+        <p>{showError}</p>
+      </article>
     </section>
   );
 }

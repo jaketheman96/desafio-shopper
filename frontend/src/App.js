@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
 import Loading from './components/Loading';
 import ShopperContext from './context/ShopperContext';
 import Admin from './pages/Admin';
@@ -15,7 +14,7 @@ function App() {
   const { isLoading } = useContext(ShopperContext);
 
   return (
-    <div className="App">
+    <div className="App bg-gray-300 min-h-screen">
       <Routes>
         <Route path="/" element={ <Login /> } />
         <Route path="/products" element={ <Products /> } />
