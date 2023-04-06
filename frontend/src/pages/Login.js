@@ -6,7 +6,7 @@ import shopperImg from '../images/shopper-logo.png';
 
 function Login() {
   const navigate = useNavigate();
-  const { setIsLoading, setUserInfos } = useContext(ShopperContext);
+  const { setUserInfos } = useContext(ShopperContext);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showError, setShowError] = useState('');
   const [userData, setUserData] = useState({
@@ -46,14 +46,12 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
     const response = await handleAllFetchMethods(
       '/user/login',
       'POST',
       userData,
       '',
     );
-    setIsLoading(false);
     if (response.message) return setShowError(response.message);
     localStorage.setItem('user', JSON.stringify(response));
     setUserInfos(response);
@@ -94,7 +92,9 @@ function Login() {
         </h1>
         <form onSubmit={handleSubmit} className="flex flex-col">
           <label htmlFor="email" className="flex flex-col">
-            <p className="text-start mb-2 mx-2">Email:</p>
+            <p className="text-start mb-2 mx-2">
+              Email:
+            </p>
             <input
               type="email"
               name="email"
@@ -104,15 +104,18 @@ function Login() {
             />
           </label>
           <label htmlFor="password" className="flex flex-col">
-            <p className="text-start mb-2 mx-2">Password:</p>
+            <p className="text-start mb-2 mx-2">
+              Senha:
+            </p>
             <input
               type="password"
               name="password"
               onChange={handleInputsChange}
               placeholder="Ex: senha123"
-              className="rounded-xl p-2 w-80 px-3 mb-8 bg-gray-800 text-white text-sm"
+              className="rounded-xl p-2 w-80 px-3 mb-2 bg-gray-800 text-white text-sm"
             />
           </label>
+          <small className="h-5 my-1 text-red-600">{showError}</small>
           <div className="flex justify-around">
             <button
               type="button"
@@ -131,7 +134,6 @@ function Login() {
             </button>
           </div>
         </form>
-        <p>{showError}</p>
       </article>
     </section>
   );
