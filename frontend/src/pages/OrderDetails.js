@@ -12,6 +12,7 @@ function OrderDetails() {
   const [isConfirmedBtnDisabled, setIsConfirmedBtnDisabled] = useState(false);
   const [isDeliveringBtnDisabled, setIsDeliveringBtnDisabled] = useState(false);
   const [isDeliveredBtnDisabled, setIsDeliveredBtnDisabled] = useState(false);
+  const MINIMUM_NUMBERS = 4;
 
   const { id } = useParams();
 
@@ -83,7 +84,9 @@ function OrderDetails() {
       {orderDetails && (
         <section>
           <h2>Detalhes do pedido:</h2>
-          <p>{`Id do pedido: ${String(orderDetails.id).padStart(2, '0')}`}</p>
+          <p>
+            {`Id do pedido: ${String(orderDetails.id).padStart(MINIMUM_NUMBERS, '0')}`}
+          </p>
           <p>{`Status do pedido: ${orderDetails.status}`}</p>
           <p>{`Data do pedido: ${formatDate(orderDetails.saleDate)}`}</p>
           <p>{`Data da entrega: ${formatDate(orderDetails.deliveryDate)}`}</p>

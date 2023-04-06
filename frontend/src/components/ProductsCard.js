@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 function ProductsCard({ id, name, price, qtyStock, handleQuantity }) {
   const [quantity, setQuantity] = useState(0);
+  const [showQuantityError, setShowQuantityError] = useState(false);
 
   const handleIncreaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -24,6 +25,16 @@ function ProductsCard({ id, name, price, qtyStock, handleQuantity }) {
     handleQuantity(id, Number(target.value));
   };
 
+  useEffect(() => {
+    const quantityValidator = () => {
+      if (quantity > qtyStock) {
+        return setShowQuantityError(true);
+      }
+      return setShowQuantityError(false);
+    };
+    quantityValidator();
+  }, [quantity, qtyStock]);
+
   return (
     <article>
       <p>{name.replace('.', ',')}</p>
@@ -36,6 +47,7 @@ function ProductsCard({ id, name, price, qtyStock, handleQuantity }) {
       <button type="button" name="decrease" onClick={ handleDecreaseQuantity }>
         -
       </button>
+      {showQuantityError && <small>Quantidade inválida</small>}
     </article>
   );
 }
