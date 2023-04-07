@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import Loading from '../components/Loading';
 import Navbar from '../components/Navbar';
 import OrdersCard from '../components/OrdersCard';
 import ShopperContext from '../context/ShopperContext';
@@ -12,12 +13,12 @@ function Orders() {
   useEffect(() => {
     const userRouteByRole = () => {
       switch (userInfos.role) {
-      case 'customer':
-        return `/sales/user/${userInfos.id}`;
-      case 'employee':
-        return '/sales';
-      default:
-        break;
+        case 'customer':
+          return `/sales/user/${userInfos.id}`;
+        case 'employee':
+          return '/sales';
+        default:
+          break;
       }
     };
     const getUserOrders = async () => {
@@ -40,19 +41,21 @@ function Orders() {
   return (
     <>
       <Navbar />
-      <section>
-        {allUserOrders.length !== 0 && allUserOrders.map((order, index) => (
-          <OrdersCard
-            key={ order.id }
-            index={ index }
-            id={ order.id }
-            saleDate={ order.saleDate }
-            status={ order.status }
-            totalPrice={ order.totalPrice }
-            deliveryDate={ order.deliveryDate }
-          />
-        ))}
-      </section>
+      {allUserOrders.length !== 0  ? (
+        <section>
+          {allUserOrders.map((order, index) => (
+            <OrdersCard
+              key={order.id}
+              index={index}
+              id={order.id}
+              saleDate={order.saleDate}
+              status={order.status}
+              totalPrice={order.totalPrice}
+              deliveryDate={order.deliveryDate}
+            />
+          ))}
+        </section>
+      ) : <Loading />}
       <p>{showError}</p>
     </>
   );

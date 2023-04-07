@@ -4,6 +4,7 @@ import ShopperContext from '../context/ShopperContext';
 import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 import Navbar from '../components/Navbar';
 import { formatingDate } from '../utils/formatDates';
+import Loading from '../components/Loading';
 
 function OrderDetails() {
   const navigate = useNavigate();
@@ -44,26 +45,26 @@ function OrderDetails() {
     const handleButtonsDisabled = () => {
       if (orderDetails) {
         switch (orderDetails.status) {
-        case 'Pendente':
-          setIsDeliveredBtnDisabled(true);
-          setIsDeliveringBtnDisabled(true);
-          setIsConfirmedBtnDisabled(false);
-          break;
-        case 'Confirmado':
-          setIsConfirmedBtnDisabled(true);
-          setIsDeliveringBtnDisabled(false);
-          setIsDeliveredBtnDisabled(true);
-          break;
-        case 'A caminho':
-          setIsConfirmedBtnDisabled(true);
-          setIsDeliveringBtnDisabled(true);
-          setIsDeliveredBtnDisabled(false);
-          break;
-        default:
-          setIsConfirmedBtnDisabled(true);
-          setIsDeliveringBtnDisabled(true);
-          setIsDeliveredBtnDisabled(true);
-          break;
+          case 'Pendente':
+            setIsDeliveredBtnDisabled(true);
+            setIsDeliveringBtnDisabled(true);
+            setIsConfirmedBtnDisabled(false);
+            break;
+          case 'Confirmado':
+            setIsConfirmedBtnDisabled(true);
+            setIsDeliveringBtnDisabled(false);
+            setIsDeliveredBtnDisabled(true);
+            break;
+          case 'A caminho':
+            setIsConfirmedBtnDisabled(true);
+            setIsDeliveringBtnDisabled(true);
+            setIsDeliveredBtnDisabled(false);
+            break;
+          default:
+            setIsConfirmedBtnDisabled(true);
+            setIsDeliveringBtnDisabled(true);
+            setIsDeliveredBtnDisabled(true);
+            break;
         }
       }
     };
@@ -81,7 +82,7 @@ function OrderDetails() {
   return (
     <>
       <Navbar />
-      {orderDetails && (
+      {orderDetails ? (
         <section>
           <h2>Detalhes do pedido:</h2>
           <p>
@@ -91,7 +92,7 @@ function OrderDetails() {
           <p>{`Data do pedido: ${formatDate(orderDetails.saleDate)}`}</p>
           <p>{`Data da entrega: ${formatDate(orderDetails.deliveryDate)}`}</p>
           {orderDetails.products.map((product, index) => (
-            <div key={ index }>
+            <div key={index}>
               <p>{`Item ${String(index + 1)} - ${product.name}`}</p>
               <p>{`Preço unitário: R$${product.price.replace('.', ',')}`}</p>
               <p>
@@ -106,8 +107,8 @@ function OrderDetails() {
                 type="button"
                 name="confirmed"
                 value="Confirmado"
-                onClick={ handleAllDeliveryButtons }
-                disabled={ isConfirmedBtnDisabled }
+                onClick={handleAllDeliveryButtons}
+                disabled={isConfirmedBtnDisabled}
               >
                 Pedido confirmado
               </button>
@@ -115,8 +116,8 @@ function OrderDetails() {
                 type="button"
                 name="delivering"
                 value="A caminho"
-                onClick={ handleAllDeliveryButtons }
-                disabled={ isDeliveringBtnDisabled }
+                onClick={handleAllDeliveryButtons}
+                disabled={isDeliveringBtnDisabled}
               >
                 Enviar pedido
               </button>
@@ -127,17 +128,17 @@ function OrderDetails() {
               type="button"
               name="delivered"
               value="Entregue"
-              onClick={ handleAllDeliveryButtons }
-              disabled={ isDeliveredBtnDisabled }
+              onClick={handleAllDeliveryButtons}
+              disabled={isDeliveredBtnDisabled}
             >
               Pedido entregue
             </button>
           )}
-          <button type="button" onClick={ () => navigate('/orders') }>
+          <button type="button" onClick={() => navigate('/orders')}>
             Voltar
           </button>
         </section>
-      )}
+      ) : <Loading />}
     </>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import Loading from '../components/Loading';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductsCard from '../components/ProductsCard';
@@ -46,24 +47,26 @@ function Products() {
   return (
     <>
       <Navbar />
-      <section>
-        {allProducts && allProducts.map((products) => (
-          <ProductsCard
-            key={ products.id }
-            id={ products.id }
-            name={ products.name }
-            price={ products.price }
-            qtyStock={ products.qtyStock }
-            handleQuantity={ handleQuantity }
-          />
-        ))}
-        <article>
-          <p>{`Total: R$${totalCartPrice.replace('.', ',')}`}</p>
-          <button type="button" onClick={ () => navigate('/cart') }>
-            Ir para o carrinho
-          </button>
-        </article>
-      </section>
+      {allProducts ? (
+        <section>
+          {allProducts.map((products) => (
+            <ProductsCard
+              key={products.id}
+              id={products.id}
+              name={products.name}
+              price={products.price}
+              qtyStock={products.qtyStock}
+              handleQuantity={handleQuantity}
+            />
+          ))}
+          <article>
+            <p>{`Total: R$${totalCartPrice.replace('.', ',')}`}</p>
+            <button type="button" onClick={() => navigate('/cart')}>
+              Ir para o carrinho
+            </button>
+          </article>
+        </section>
+      ) : <Loading />}
     </>
   );
 }
