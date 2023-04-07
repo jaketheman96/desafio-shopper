@@ -14,7 +14,7 @@ function App() {
   const { isLoading } = useContext(ShopperContext);
 
   return (
-    <div className="App bg-gray-300 min-h-screen">
+    <div className="App bg-gray-200 min-h-screen">
       <Routes>
         <Route path="/" element={ <Login /> } />
         <Route path="/products" element={ <Products /> } />

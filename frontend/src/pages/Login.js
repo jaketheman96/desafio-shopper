@@ -86,7 +86,7 @@ function Login() {
         />
       </article>
       <hr className="md:h-80 md:w-0.5 md:bg-slate-900 md:mx-6 rounded" />
-      <article className="flex flex-col px-8 text-center">
+      <article className="flex flex-col sm:px-8 text-center">
         <h1 className="mb-7 text-3xl font-semibold">
           Login
         </h1>
@@ -115,7 +115,9 @@ function Login() {
               className="rounded-xl p-2 w-80 px-3 mb-2 bg-gray-800 text-white text-sm"
             />
           </label>
-          <small className="h-5 my-1 text-red-600">{showError}</small>
+          <small className="h-5 my-1 text-red-600">
+            {showError}
+          </small>
           <div className="flex justify-around">
             <button
               type="button"

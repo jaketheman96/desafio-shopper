@@ -5,7 +5,7 @@ import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 
 function Register() {
   const navigate = useNavigate();
-  const { setUserInfos, setIsLoading } = useContext(ShopperContext);
+  const { setUserInfos } = useContext(ShopperContext);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showError, setShowError] = useState('');
   const [userData, setUserData] = useState({
@@ -62,14 +62,12 @@ function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
     const response = await handleAllFetchMethods(
       '/user/register',
       'POST',
       userData,
       '',
     );
-    setIsLoading(false);
     if (response.message) return setShowError(response.message);
     localStorage.setItem('user', JSON.stringify(response));
     setUserInfos(response);
@@ -85,32 +83,83 @@ function Register() {
   }, [showError]);
 
   return (
-    <section>
-      <form onSubmit={ handleSubmit }>
+    <section className="min-h-screen flex items-center justify-center">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-gray-300 text-center flex flex-col py-3 px-16 rounded-xl w-screen sm:w-6/12 md:w-5/12 lg:w-96 shadow-lg shadow-gray-400/70"
+      >
+        <h1 className="mb-2 text-2xl font-bold">
+          Registrar
+        </h1>
         <label htmlFor="username">
-          Nome:
-          <input type="text" name="username" onChange={ handleInputsChange } />
+          <p className="text-start ml-1">
+            Nome:
+          </p>
+          <input
+            type="text"
+            name="username"
+            onChange={handleInputsChange}
+            placeholder="Ex: Matheus Silva"
+            className="mb-3 w-full bg-gray-800 h-7 rounded-lg pl-3 text-white placeholder:text-xs"
+          />
         </label>
         <label htmlFor="email">
-          Email:
-          <input type="email" name="email" onChange={ handleInputsChange } />
+          <p className="text-start ml-1">
+            Email:
+          </p>
+          <input
+            type="email"
+            name="email"
+            onChange={handleInputsChange}
+            placeholder="Ex: shopper@email.com"
+            className="mb-3 w-full bg-gray-800 h-7 rounded-lg pl-3 text-white placeholder:text-xs"
+          />
         </label>
         <label htmlFor="password">
-          Senha:
-          <input type="password" name="password" onChange={ handleInputsChange } />
+          <p className="text-start ml-1">
+            Senha:
+          </p>
+          <input
+            type="password"
+            name="password"
+            onChange={handleInputsChange}
+            placeholder="Ex: senha123"
+            className="mb-3 w-full bg-gray-800 h-7 rounded-lg pl-3 text-white placeholder:text-xs"
+          />
         </label>
         <label htmlFor="address">
-          Endereço:
-          <input type="address" name="address" onChange={ handleInputsChange } />
+          <p className="text-start ml-1">
+            Endereço:
+          </p>
+          <input
+            type="address"
+            name="address"
+            onChange={handleInputsChange}
+            placeholder="Ex: Rua Xablauland 125"
+            className="w-full bg-gray-800 h-7 rounded-lg pl-3 text-white placeholder:text-xs"
+          />
         </label>
-        <button type="button" onClick={ () => navigate('/') }>
-          Voltar
-        </button>
-        <button type="submit" onClick={ handleSubmit } disabled={ isButtonDisabled }>
-          Entrar
-        </button>
+        <small className="h-5 my-1 text-red-600">
+          {showError}
+        </small>
+        <div className="flex justify-around">
+          <button
+            type="button"
+            onClick={() => navigate('/')}
+            className="bg-emerald-700 rounded-lg p-0.5 px-2 w-24 text-white hover:bg-emerald-400 hover:text-black"
+          >
+            Voltar
+          </button>
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            disabled={isButtonDisabled}
+            className="bg-emerald-700 rounded-lg p-0.5 px-2 w-24 text-white hover:bg-emerald-400 hover:text-black"
+          >
+            Entrar
+          </button>
+        </div>
       </form>
-      <p>{showError}</p>
     </section>
   );
 }
