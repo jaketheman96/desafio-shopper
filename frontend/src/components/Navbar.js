@@ -24,26 +24,26 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-400 flex justify-between items-center h-10 rounded-lg">
+    <nav className="bg-gray-400 flex justify-between items-center h-10 rounded-lg shadow-lg fixed w-full z-10 opacity-95">
       <img
         src={shopperLogo}
         alt="shopper-logo"
         className="w-28 h-7 pl-3"
       />
-      <ul className="flex w-7/12 sm:w-2/5 lg:w-1/3 justify-around">
+      <ul className="flex w-7/12 sm:w-2/5 lg:w-1/3 justify-around h-full">
         {userRole && userRole === 'customer' && (
-          <li>
+          <li className="h-full flex items-center">
             <Link to="/products" className="text-sm">
               Produtos
             </Link>
           </li>
         )}
-        <li>
+          <li className="h-full flex items-center">
           <Link to="/orders" className="text-sm">
             Pedidos
           </Link>
         </li>
-        <li>
+        <li className="h-full flex items-center">
           <button
             type="button"
             onClick={handleLogout}

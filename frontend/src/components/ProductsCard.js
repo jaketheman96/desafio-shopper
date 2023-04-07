@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function ProductsCard({ id, name, price, qtyStock, handleQuantity }) {
   const [quantity, setQuantity] = useState(0);
-  const [showQuantityError, setShowQuantityError] = useState(false);
+  const [quantityError, setQuantityError] = useState('');
 
   const handleIncreaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -28,26 +28,51 @@ function ProductsCard({ id, name, price, qtyStock, handleQuantity }) {
   useEffect(() => {
     const quantityValidator = () => {
       if (quantity > qtyStock) {
-        return setShowQuantityError(true);
+        return setQuantityError('Quantidade inválida');
       }
-      return setShowQuantityError(false);
+      return setQuantityError('');
     };
     quantityValidator();
   }, [quantity, qtyStock]);
 
   return (
-    <article>
-      <p>{name.replace('.', ',')}</p>
-      <p>{`${qtyStock} unidades`}</p>
-      <p>{`R$${price}`.replace('.', ',')}</p>
-      <button type="button" name="increase" onClick={ handleIncreaseQuantity }>
-        +
-      </button>
-      <input type="text" value={ quantity } onChange={ handleChange } />
-      <button type="button" name="decrease" onClick={ handleDecreaseQuantity }>
-        -
-      </button>
-      {showQuantityError && <small>Quantidade inválida</small>}
+    <article className="relative text-center rounded-xl w-64 shadow-lg bg-gray-300 h-60 flex flex-col justify-between px-2 py-7">
+      <p className="text-base">
+        {name.replace('.', ',')}
+      </p>
+      <p className="text-sm">
+        {`R$${price}`.replace('.', ',')}
+      </p>
+      <p className="text-sm">
+        {`${qtyStock} unidades`}
+      </p>
+      <div>
+        <button
+          type="button"
+          name="decrease"
+          onClick={handleDecreaseQuantity}
+          className="bg-gray-600 text-white text-base rounded-l-lg w-6 active:scale-90"
+        >
+          -
+        </button>
+        <input
+          type="text"
+          value={quantity}
+          onChange={handleChange}
+          className="w-8 text-center bg-gray-200"
+        />
+        <button
+          type="button"
+          name="increase"
+          onClick={handleIncreaseQuantity}
+          className="bg-gray-600 text-white text-base rounded-r-lg w-6 active:scale-90"
+        >
+          +
+        </button>
+      </div>
+      <small className="absolute top-56 left-20 text-xs text-red-600 font-bold">
+        {quantityError}
+      </small>
     </article>
   );
 }

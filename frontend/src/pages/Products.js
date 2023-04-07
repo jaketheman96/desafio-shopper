@@ -48,7 +48,7 @@ function Products() {
     <>
       <Navbar />
       {allProducts ? (
-        <section>
+        <section className="relative min-h-screen flex flex-wrap justify-center gap-7 px-7 py-14">
           {allProducts.map((products) => (
             <ProductsCard
               key={products.id}
@@ -59,10 +59,15 @@ function Products() {
               handleQuantity={handleQuantity}
             />
           ))}
-          <article>
-            <p>{`Total: R$${totalCartPrice.replace('.', ',')}`}</p>
-            <button type="button" onClick={() => navigate('/cart')}>
-              Ir para o carrinho
+          <article className="fixed bottom-1 right-3">
+            <button
+              type="button"
+              onClick={() => navigate('/cart')}
+              className="bg-emerald-400 p-2 rounded-lg opacity-70 hover:bg-emerald-700 hover:text-white"
+            >
+              <p>
+                {`Total: R$${totalCartPrice.replace('.', ',')}`}
+              </p>
             </button>
           </article>
         </section>
