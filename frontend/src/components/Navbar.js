@@ -24,7 +24,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-400 flex justify-between items-center h-11 rounded-lg shadow-lg fixed w-full z-10 opacity-95">
+    <nav className="bg-gray-400 flex justify-between items-center h-11 rounded-lg shadow-lg fixed w-full z-20 opacity-95">
       <img
         src={shopperLogo}
         alt="shopper-logo"

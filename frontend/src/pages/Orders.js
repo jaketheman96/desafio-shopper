@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Loading from '../components/Loading';
 import Navbar from '../components/Navbar';
 import OrdersCard from '../components/OrdersCard';
 import ShopperContext from '../context/ShopperContext';
 import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 
 function Orders() {
-  const { userInfos } = useContext(ShopperContext);
+  const { userInfos, setIsLoading } = useContext(ShopperContext);
   const [allUserOrders, setAllUserOrders] = useState([]);
   const [showError, setShowError] = useState('');
 
@@ -23,23 +22,25 @@ function Orders() {
     };
     const getUserOrders = async () => {
       if (userInfos) {
+        setIsLoading(true)
         const orders = await handleAllFetchMethods(
           userRouteByRole(),
           'GET',
           null,
           userInfos.token,
         );
+        setIsLoading(false)
         if (orders.message) return setShowError(orders.message);
         return setAllUserOrders(orders);
       }
     };
     getUserOrders();
-  }, [userInfos]);
+  }, [userInfos, setIsLoading]);
 
   return (
     <>
       <Navbar />
-      {allUserOrders.length !== 0  ? (
+      {allUserOrders.length !== 0 && (
         <section className="min-h-screen py-16 flex flex-wrap justify-around items-center gap-5 px-4 lg:px-24">
           {allUserOrders.map((order, index) => (
             <OrdersCard
@@ -53,7 +54,7 @@ function Orders() {
             />
           ))}
         </section>
-      ) : <Loading />}
+      )}
       <p>{showError}</p>
     </>
   );

@@ -6,7 +6,7 @@ import shopperImg from '../images/shopper-logo.png';
 
 function Login() {
   const navigate = useNavigate();
-  const { setUserInfos } = useContext(ShopperContext);
+  const { setUserInfos, setIsLoading } = useContext(ShopperContext);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showError, setShowError] = useState('');
   const [userData, setUserData] = useState({
@@ -46,12 +46,14 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     const response = await handleAllFetchMethods(
       '/user/login',
       'POST',
       userData,
       '',
     );
+    setIsLoading(false);
     if (response.message) return setShowError(response.message);
     localStorage.setItem('user', JSON.stringify(response));
     setUserInfos(response);

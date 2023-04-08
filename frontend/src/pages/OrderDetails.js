@@ -4,11 +4,10 @@ import ShopperContext from '../context/ShopperContext';
 import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 import Navbar from '../components/Navbar';
 import { formatingDate } from '../utils/formatDates';
-import Loading from '../components/Loading';
 
 function OrderDetails() {
   const navigate = useNavigate();
-  const { userInfos } = useContext(ShopperContext);
+  const { userInfos, setIsLoading } = useContext(ShopperContext);
   const [orderDetails, setOrderDetails] = useState();
   const [isConfirmedBtnDisabled, setIsConfirmedBtnDisabled] = useState(false);
   const [isDeliveringBtnDisabled, setIsDeliveringBtnDisabled] = useState(false);
@@ -20,18 +19,20 @@ function OrderDetails() {
   useEffect(() => {
     const getOrderDetails = async () => {
       if (userInfos) {
+        setIsLoading(true);
         const order = await handleAllFetchMethods(
           `/sales/${id}`,
           'GET',
           null,
           userInfos.token,
         );
+        setIsLoading(false)
         if (order.message) return console.log(order.message);
         setOrderDetails(order);
       }
     };
     getOrderDetails();
-  }, [userInfos, id]);
+  }, [userInfos, id, setIsLoading]);
 
   const formatDate = (dateToFormat) => {
     if (orderDetails) {
@@ -80,7 +81,7 @@ function OrderDetails() {
   return (
     <>
       <Navbar />
-      {orderDetails ? (
+      {orderDetails && (
         <section>
           <h2>Detalhes do pedido:</h2>
           <p>
@@ -136,7 +137,7 @@ function OrderDetails() {
             Voltar
           </button>
         </section>
-      ) : <Loading />}
+      )}
     </>
   );
 }

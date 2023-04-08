@@ -13,6 +13,7 @@ function CartTable() {
     setCart,
     totalCartPrice,
     userInfos,
+    setIsLoading,
   } = useContext(ShopperContext);
 
   const handleRemoveButton = ({ currentTarget }) => {
@@ -22,6 +23,7 @@ function CartTable() {
   };
 
   const handleSubmitCart = async () => {
+    setIsLoading(true)
     const payload = {
       userId: Number(userInfos.id),
       saleDate: new Date(),
@@ -36,6 +38,7 @@ function CartTable() {
       payload,
       userInfos.token,
     );
+    setIsLoading(false)
     localStorage.removeItem('cart');
     setCart([]);
     navigate('/orders');
