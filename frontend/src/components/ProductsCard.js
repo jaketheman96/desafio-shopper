@@ -36,7 +36,7 @@ function ProductsCard({ id, name, price, qtyStock, handleQuantity }) {
   }, [quantity, qtyStock]);
 
   return (
-    <article className="relative text-center rounded-xl w-64 shadow-lg bg-gray-300 h-60 flex flex-col justify-between px-2 py-7">
+    <article className="relative text-center rounded-xl w-full sm:w-2/5 lg:w-1/5 ease-out duration-200 shadow-lg bg-gray-300 h-60 flex flex-col justify-between px-2 py-7">
       <p className="text-base">
         {name.replace('.', ',')}
       </p>
