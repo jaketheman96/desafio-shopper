@@ -40,10 +40,10 @@ function ProductsCard({ id, name, price, qtyStock, handleQuantity }) {
       <p className="text-base">
         {name.replace('.', ',')}
       </p>
-      <p className="text-sm">
+      <p className="text-base">
         {`R$${price}`.replace('.', ',')}
       </p>
-      <p className="text-sm">
+      <p className="text-base">
         {`${qtyStock} unidades`}
       </p>
       <div>

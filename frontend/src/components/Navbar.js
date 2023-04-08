@@ -24,7 +24,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-400 flex justify-between items-center h-10 rounded-lg shadow-lg fixed w-full z-10 opacity-95">
+    <nav className="bg-gray-400 flex justify-between items-center h-11 rounded-lg shadow-lg fixed w-full z-10 opacity-95">
       <img
         src={shopperLogo}
         alt="shopper-logo"
@@ -33,13 +33,13 @@ function Navbar() {
       <ul className="flex w-7/12 sm:w-2/5 lg:w-1/3 justify-around h-full">
         {userRole && userRole === 'customer' && (
           <li className="h-full flex items-center">
-            <Link to="/products" className="text-sm">
+            <Link to="/products" className="text-base">
               Produtos
             </Link>
           </li>
         )}
           <li className="h-full flex items-center">
-          <Link to="/orders" className="text-sm">
+          <Link to="/orders" className="text-base">
             Pedidos
           </Link>
         </li>
@@ -47,7 +47,7 @@ function Navbar() {
           <button
             type="button"
             onClick={handleLogout}
-            className="text-sm"
+            className="text-base"
           >
             Sair
           </button>
