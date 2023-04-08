@@ -40,7 +40,7 @@ function Orders() {
     <>
       <Navbar />
       {allUserOrders.length !== 0  ? (
-        <section>
+        <section className="min-h-screen py-16 flex flex-wrap justify-around items-center gap-5 px-4 lg:px-24">
           {allUserOrders.map((order, index) => (
             <OrdersCard
               key={order.id}
