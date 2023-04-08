@@ -12,7 +12,6 @@ function CartTable() {
     setCart,
     totalCartPrice,
     userInfos,
-    setIsLoading,
   } = useContext(ShopperContext);
 
   const handleRemoveButton = ({ target }) => {
@@ -30,7 +29,6 @@ function CartTable() {
       totalPrice: Number(totalCartPrice),
       deliveryDate,
     };
-    setIsLoading(true);
     await handleAllFetchMethods(
       '/sales',
       'POST',
@@ -39,7 +37,6 @@ function CartTable() {
     );
     localStorage.removeItem('cart');
     setCart([]);
-    setIsLoading(false);
     navigate('/orders');
   };
 

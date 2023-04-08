@@ -8,18 +8,16 @@ import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
 
 function Products() {
   const navigate = useNavigate();
-  const { setCart, cart, totalCartPrice, setIsLoading } = useContext(ShopperContext);
+  const { setCart, cart, totalCartPrice } = useContext(ShopperContext);
   const [allProducts, setAllProducts] = useState();
 
   useEffect(() => {
     const getAllProducts = async () => {
-      setIsLoading(true);
       const products = await handleAllFetchMethods('/products', 'GET', null, '');
-      setIsLoading(false);
       return setAllProducts(products);
     };
     getAllProducts();
-  }, [setIsLoading]);
+  }, []);
 
   const handleQuantity = (productId, quantity) => {
     const product = allProducts.find((item) => item.id === productId);

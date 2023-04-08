@@ -8,7 +8,7 @@ import Loading from '../components/Loading';
 
 function OrderDetails() {
   const navigate = useNavigate();
-  const { setIsLoading, userInfos } = useContext(ShopperContext);
+  const { userInfos } = useContext(ShopperContext);
   const [orderDetails, setOrderDetails] = useState();
   const [isConfirmedBtnDisabled, setIsConfirmedBtnDisabled] = useState(false);
   const [isDeliveringBtnDisabled, setIsDeliveringBtnDisabled] = useState(false);
@@ -20,20 +20,18 @@ function OrderDetails() {
   useEffect(() => {
     const getOrderDetails = async () => {
       if (userInfos) {
-        setIsLoading(true);
         const order = await handleAllFetchMethods(
           `/sales/${id}`,
           'GET',
           null,
           userInfos.token,
         );
-        setIsLoading(false);
         if (order.message) return console.log(order.message);
         setOrderDetails(order);
       }
     };
     getOrderDetails();
-  }, [userInfos, id, setIsLoading]);
+  }, [userInfos, id]);
 
   const formatDate = (dateToFormat) => {
     if (orderDetails) {

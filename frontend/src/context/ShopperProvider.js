@@ -4,7 +4,6 @@ import ShopperContext from './ShopperContext';
 
 function ShopperProvider({ children }) {
   const [userInfos, setUserInfos] = useState();
-  const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState([]);
   const [totalCartPrice, setTotalCartPrice] = useState('');
 
@@ -50,13 +49,11 @@ function ShopperProvider({ children }) {
   const globalState = useMemo(() => ({
     userInfos,
     setUserInfos,
-    isLoading,
-    setIsLoading,
     cart,
     setCart,
     totalCartPrice,
     setTotalCartPrice,
-  }), [isLoading, userInfos, cart, totalCartPrice]);
+  }), [userInfos, cart, totalCartPrice]);
 
   return (
     <ShopperContext.Provider value={ globalState }>
