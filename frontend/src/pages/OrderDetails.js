@@ -41,14 +41,6 @@ function OrderDetails() {
     }
   };
 
-  const isScrollbarNeeded = () => {
-    const THREE_PRODUCTS = 3;
-    if (orderDetails.products.length <= THREE_PRODUCTS) {
-      return 'justify-center';
-    }
-    return 'overflow-x-scroll';
-  }
-
   useEffect(() => {
     const handleButtonsDisabled = () => {
       if (orderDetails) {
@@ -87,6 +79,13 @@ function OrderDetails() {
     await handleAllFetchMethods(`/sales/${id}`, 'PUT', payload, userInfos.token);
   };
 
+  const centerOneProduct = () => {
+    if (orderDetails.products.length <= 1) {
+      return 'justify-center'
+    }
+    return '';
+  }
+
   return (
     <>
       <Navbar />
@@ -112,8 +111,11 @@ function OrderDetails() {
                   {`Entrega: ${formatDate(orderDetails.deliveryDate)}`}
                 </p>
               </div>
+              {userInfos && userInfos.role === 'employee' && (
+                <p>{`Endereço: ${orderDetails.user.address}`}</p>
+              )}
             </div>
-            <div className={`flex pb-6 ${isScrollbarNeeded()}`}>
+            <div className={`flex pb-6 overflow-x-scroll ${centerOneProduct()}`}>
               {orderDetails.products.map((product, index) => (
                 <div
                   key={index}
