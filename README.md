@@ -32,6 +32,10 @@
 
 ![employee](https://user-images.githubusercontent.com/78574045/230846921-c33cc311-6023-478d-a913-b6922e31ae1d.png)
 
+- Tive tempo para deixar o design responsivo utilizando TailwindCSS, portanto ele também pode ser usado em dispositivos móveis.
+
+![mobile](https://user-images.githubusercontent.com/78574045/230850287-66d589db-4729-4084-9a9f-4f770b16edbd.png)
+
 - Tendo essa aplicação como base, podemos alterar diversas coisas, por exemplo, separar os produtos por categorias, assim o cliente terá uma melhor organização na hora de selecionar os produtos. Também podemos optar por outras validações como textos em vermelhos indicando o erro. São muitas opções, portanto encaixaremos a favor da regra de negócio da empresa.
 
 ### Muito obrigado, espero que gostem!
