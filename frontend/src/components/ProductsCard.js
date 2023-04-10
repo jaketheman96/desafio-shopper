@@ -70,7 +70,7 @@ function ProductsCard({ id, name, price, qtyStock, handleQuantity }) {
           +
         </button>
       </div>
-      <small className="absolute top-56 left-20 text-xs text-red-600 font-bold">
+      <small className="absolute top-56 left-0 right-0 text-xs text-red-600 font-bold">
         {quantityError}
       </small>
     </article>
