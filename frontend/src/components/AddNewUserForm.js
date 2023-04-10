@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
+import handleAllFetchMethods from '../utils/handleAllFetchMethods';
 
 function AddNewUserForm() {
   const [newUserInfos, setNewUserInfos] = useState({

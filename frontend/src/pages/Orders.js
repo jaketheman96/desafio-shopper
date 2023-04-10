@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import OrdersCard from '../components/OrdersCard';
 import ShopperContext from '../context/ShopperContext';
-import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
+import handleAllFetchMethods from '../utils/handleAllFetchMethods';
 
 function Orders() {
   const { userInfos, setIsLoading } = useContext(ShopperContext);

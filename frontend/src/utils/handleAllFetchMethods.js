@@ -21,4 +21,4 @@ const handleAllFetchMethods = async (route, fetchMethod, body, token) => {
   }
 };
 
-module.exports = { handleAllFetchMethods };
+export default handleAllFetchMethods;

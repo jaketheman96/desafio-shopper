@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ShopperContext from '../context/ShopperContext';
-import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
+import handleAllFetchMethods from '../utils/handleAllFetchMethods';
 import shopperImg from '../images/shopper-logo.png';
 
 function Login() {

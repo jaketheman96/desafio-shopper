@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
+import handleAllFetchMethods from '../utils/handleAllFetchMethods';
 
 function AdminTable() {
   const [allUsers, setAllUsers] = useState();

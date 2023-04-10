@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductsCard from '../components/ProductsCard';
 import ShopperContext from '../context/ShopperContext';
-import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
+import handleAllFetchMethods from '../utils/handleAllFetchMethods';
 
 function Products() {
   const navigate = useNavigate();

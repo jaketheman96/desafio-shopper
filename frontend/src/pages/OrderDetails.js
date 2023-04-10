@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ShopperContext from '../context/ShopperContext';
-import { handleAllFetchMethods } from '../utils/handleAllFetchMethods';
+import handleAllFetchMethods from '../utils/handleAllFetchMethods';
 import Navbar from '../components/Navbar';
 import { formatingDate } from '../utils/formatDates';
 import statusColor from '../utils/statusColor';
